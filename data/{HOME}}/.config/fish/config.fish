@@ -15,3 +15,5 @@ function fish_prompt --description 'Write out the prompt'
   echo -n ' $ '
 
 end
+
+set -gx PATH ~/dev/bin ~/dev3/bin $PATH
