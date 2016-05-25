@@ -2,8 +2,8 @@ mydev.sublime-project
 mydev.sublime-workspace
 .idea
 .vagrant
-/worker
 *.egg-info
 __pycache__
 /build
 /dist
+/dev

@@ -32,7 +32,7 @@ def terminate_process(p, timeout=10, sleep_step=0.1):
         # Terminate
         p.terminate()
 
-        for i in xrange(int(timeout/sleep_step)):
+        for i in range(int(timeout/sleep_step)):
             exit_code = p.poll()
             if exit_code is None:
                 # Still running
