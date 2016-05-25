@@ -1,6 +1,6 @@
 import logging
 import subprocess
-from time import sleep
+from time import sleep, time
 
 from bb8.process.exception import CommandError
 
@@ -32,7 +32,7 @@ def terminate_process(p, timeout=10, sleep_step=0.1):
         # Terminate
         p.terminate()
 
-        for i in range(int(timeout/sleep_step)):
+        for i in range(int(timeout / sleep_step)):
             exit_code = p.poll()
             if exit_code is None:
                 # Still running
@@ -49,3 +49,20 @@ def terminate_process(p, timeout=10, sleep_step=0.1):
         p.kill()
     except Exception as e:
         logging.exception(e)
+
+
+def wait_stdout(p, text, timeout=10):
+    start = time()
+    stdout_lines = iter(p.stdout.readline, "")
+    output = []
+    for stdout_line in stdout_lines:
+        line = stdout_line.decode("utf-8")[:-1]
+        output.append(line)
+        print(line)
+        if text in line:
+            return True, "\n".join(output)
+
+        if time() - start > timeout:
+            return False, "\n".join(output)
+
+    return False, "\n".join(output)
