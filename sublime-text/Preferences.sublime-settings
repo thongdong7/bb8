@@ -1,0 +1,35 @@
+{
+    "color_scheme": "Packages/Tomorrow Color Schemes/Tomorrow-Night-Eighties.tmTheme",
+    "ensure_newline_at_eof_on_save": true,
+    "file_exclude_patterns":
+    [
+        ".DS_Store",
+        "*.pid",
+        "*.pyc",
+        "*.log",
+        "*.sublime*"
+    ],
+    "find_selected_text": true,
+    "folder_exclude_patterns":
+    [
+        ".git",
+        ".vagrant",
+        ".idea",
+        "__pycache__",
+        "env",
+        "env3"
+    ],
+    "highlight_line": true,
+    "highlight_modified_tabs": true,
+    "ignored_packages":
+    [
+        "Vintage"
+    ],
+    "save_on_focus_lost": true,
+    "scroll_past_end": false,
+    "tab_size": 4,
+    "theme": "Soda Dark 3.sublime-theme",
+    "translate_tabs_to_spaces": true,
+    "font_face": "Droid Sans Mono",
+    "trim_trailing_white_space_on_save": true
+}

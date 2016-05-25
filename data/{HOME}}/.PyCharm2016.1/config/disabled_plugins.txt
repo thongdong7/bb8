@@ -1,0 +1,7 @@
+org.jetbrains.plugins.ipnb
+org.jetbrains.plugins.python-rest
+org.jetbrains.plugins.github
+Subversion
+com.intellij.tasks
+org.jetbrains.plugins.rest
+hg4idea

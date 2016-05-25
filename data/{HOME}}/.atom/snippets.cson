@@ -1,0 +1,122 @@
+'.source.js':
+  'React Component Class':
+    'prefix': 'comp'
+    'body': """
+      import React from 'react'
+
+      export default class ${1:filename} extends React.Component {
+        constructor(props) {
+          super(props)
+        }
+
+        render() {
+          return (
+            <div className="box box-solid">
+              <div className="box-header with-border">
+                <h3 className="box-title">${1:filename} Title</h3>
+
+                <div className="box-tools">
+                  <button type="button" className="btn btn-box-tool" data-widget="collapse"><i className="fa fa-minus"></i>
+                  </button>
+                </div>
+              </div>
+              <div className="box-body">
+                ${2:info}
+              </div>
+            </div>
+          )
+        }
+      }
+    """
+  'Const Component':
+    'prefix': 'ccmp'
+    'body': """
+      const ${1:ComponentName} = ({${2}}) => {
+        return (
+          <${3:tag}>
+            ${4}
+          </${3:tag}>
+        )
+      }
+
+      export default ${1:ComponentName}
+    """
+  'ES import':
+    'prefix': 'imp'
+    'body': """
+      import ${1:class} from '${2:package}'$3
+    """
+  'ES import same package':
+    'prefix': 'impp'
+    'body': """
+      import ${1:class} from './${1:class}'$3
+    """
+  'ES import module':
+    'prefix': 'impm'
+    'body': """
+      import ${1:class} from '../${1:class}'$3
+    """
+  'React Will Mount':
+    'prefix': 'cwm'
+    'body': """
+      componentWillMount() {
+        this.loadData()
+      }
+
+      async loadData() {
+        this.setState({loading: true})
+
+        let data = await RestService.load("${1:query}")
+
+        this.setState({data: data, loading: false})
+      }
+    """
+  'React Receive Props':
+    'prefix': 'np'
+    'body': """
+      componentWillReceiveProps(nextProps) {
+        ${1:statement}
+      }
+    """
+  'React setState':
+    'prefix': 'ss'
+    'body': """
+      this.setState({${1:statement}})
+    """
+  'React className':
+    'prefix': 'cn'
+    'body': """
+      className="${1:class}"${2}
+    """
+  'Bootstrap Button':
+    'prefix': 'btn'
+    'body': """
+      <button className="btn btn-default">${1:name}</button>
+    """
+  'FA Icon':
+    'prefix': 'ic'
+    'body': """
+      <i className="fa fa-${1:name}"></i>
+    """
+  'ES onClick':
+    'prefix': 'clk'
+    'body': """
+      onClick={this.${1:method}.bind(this)}
+    """
+
+  'if':
+    'prefix': 'if'
+    'body': """
+      if (${1:condition}) {
+        ${2}
+      }
+    """
+  'if else':
+    'prefix': 'ife'
+    'body': """
+      if (${1:condition}) {
+        ${2}
+      } else {
+        ${3}
+      }
+    """

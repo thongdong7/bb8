@@ -1,0 +1,20 @@
+<templateSet group="Python">
+  <template name="log" value="self.logger = logging.getLogger(self.__class__.__name__)" shortcut="ENTER" toReformat="false" toShortenFQNames="true">
+    <context>
+      <option name="Python" value="true" />
+    </context>
+  </template>
+  <template name="logg" value="logging.basicConfig(level=logging.DEBUG)" toReformat="false" toShortenFQNames="true">
+    <context>
+      <option name="Python" value="true" />
+    </context>
+  </template>
+  <template name="currf" value="current_folder = os.path.abspath(os.path.dirname(__file__))" description="Current Folder" toReformat="true" toShortenFQNames="true">
+    <context>
+      <option name="Python" value="true" />
+    </context>
+  </template>
+  <template name="app_dir" value="app_dir = os.path.abspath(os.path.dirname(__file__))" description="Application Dir" toReformat="false" toShortenFQNames="true">
+    <context />
+  </template>
+</templateSet>

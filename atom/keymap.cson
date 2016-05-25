@@ -1,0 +1,17 @@
+'atom-workspace atom-text-editor:not([mini])':
+  'f2': 'editor:duplicate-lines'
+  'alt-down': 'editor:move-line-down'
+  'alt-up': 'editor:move-line-up'
+  'ctrl-l': 'go-to-line:toggle'
+'atom-text-editor:not([mini])':
+  'f4': 'editor:delete-line'
+'body':
+  'f5': 'core:copy'
+  'f6': 'core:paste'
+  'f7': 'core:cut'
+'atom-text-editor':
+  'alt-shift-i': 'nuclide-format-js:format'
+'.platform-darwin, .platform-win32, .platform-linux':
+  'ctrl-l': 'go-to-line:toggle'
+'.platform-win32 atom-workspace, .platform-linux atom-workspace':
+  'ctrl-shift-r': 'nuclide-quick-open:find-anything-via-omni-search'

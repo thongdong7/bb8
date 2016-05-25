@@ -1,0 +1,36 @@
+'.source.js':
+  'React Component Class':
+    'prefix': 'comp'
+    'body': """
+      import React from 'react'
+      import { Link } from 'react-router'
+
+      export default class ${1:filename} extends React.Component {
+        constructor(props) {
+          super(props)
+        }
+
+        render() {
+          return (
+            <div className="box box-solid">
+              <div className="box-header with-border">
+                <h3 className="box-title">${1:filename} Title</h3>
+
+                <div className="box-tools">
+                  <button type="button" className="btn btn-box-tool" data-widget="collapse"><i className="fa fa-minus"></i>
+                  </button>
+                </div>
+              </div>
+              <div className="box-body">
+                ${2:info}
+              </div>
+            </div>
+          )
+        }
+      }
+    """
+  'ES import':
+    'prefix': 'imp'
+    'body': """
+      import ${1:class} from '${2:package}'$3
+    """

@@ -1,0 +1,15 @@
+<filetype binary="false" description="Shell" name="Shell">
+  <highlighting>
+    <options>
+      <option name="LINE_COMMENT" value="" />
+      <option name="COMMENT_START" value="" />
+      <option name="COMMENT_END" value="" />
+      <option name="HEX_PREFIX" value="" />
+      <option name="NUM_POSTFIXES" value="" />
+    </options>
+    <keywords ignore_case="false" />
+  </highlighting>
+  <extensionMap>
+    <mapping ext="sh" />
+  </extensionMap>
+</filetype>

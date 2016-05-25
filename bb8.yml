@@ -1,0 +1,15 @@
+paths:
+  # Atom files
+  - "{{HOME}}/.atom/snippets.cson"
+  - "{{HOME}}/.atom/keymap.cson"
+
+  # PyCharm files
+  - "{{HOME}}/.PyCharm2016.1/config/fileTemplates/internal/Python Unit Test.py"
+  - "{{HOME}}/.PyCharm2016.1/config/templates/Python.xml"
+  - "{{HOME}}/.PyCharm2016.1/config/templates/JavaScript.xml"
+  - "{{HOME}}/.PyCharm2016.1/config/keymaps/Eclipse copy.xml"
+  - "{{HOME}}/.PyCharm2016.1/config/disabled_plugins.txt"
+  - "{{HOME}}/.PyCharm2016.1/config/codestyles/Default _1_.xml"
+
+  # Fish
+  - "{{HOME}}/.config/fish/config.fish"
