@@ -3,6 +3,8 @@
   'alt-down': 'editor:move-line-down'
   'alt-up': 'editor:move-line-up'
   'ctrl-l': 'go-to-line:toggle'
+  'ctrl-d': 'git-plus:diff-all'
+  'ctrl-p': 'git-plus:add-all-commit-and-push'
 'atom-text-editor:not([mini])':
   'f4': 'editor:delete-line'
 'body':
