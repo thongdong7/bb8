@@ -24,7 +24,7 @@ setup(
     # },
     entry_points={
         'console_scripts': [
-            'bb8=bb8.script.main:cli',
+            'bb8=bb8.script.main:bb8_script',
         ],
     },
     classifiers=[

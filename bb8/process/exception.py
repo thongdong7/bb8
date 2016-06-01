@@ -2,7 +2,7 @@ class CommandError(Exception):
     def __init__(self, cmd, output, returncode, *args, **kwargs):
         super(CommandError, self).__init__(*args, **kwargs)
         self.cmd = cmd
-        self.output = output
+        self.output = output.decode("utf-8")
         self.returncode = returncode
 
     def __str__(self, *args, **kwargs):
