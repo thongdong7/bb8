@@ -1,8 +1,6 @@
-import sys
-
 from bb8.process.cmd import run_cmd
 from bb8.process.exception import CommandError
-from bb8.script.utils import exit_msg
+from bb8.script.utils import write_msg
 
 
 class Skill(object):
@@ -90,7 +88,7 @@ class SkillManager(object):
         for i, arg in enumerate(args):
             use = use.replace('${0}'.format(i + 1), arg)
 
-        print(use)
+        # print(use)
         # print(skill.use)
 
         try:
@@ -98,14 +96,16 @@ class SkillManager(object):
         except CommandError as e:
             raise SkillExecuteError(skill=skill, use=use, detail=e.output)
 
+        write_msg("Complete: {0}".format(use))
 
-def cli_run_skill(name):
-    skill_manager = SkillManager()
-    try:
-        skill_manager.execute(*sys.argv[1:])
-    except (SkillExecuteError, MissedKillError) as e:
-        exit_msg(str(e))
-    return
 
-if __name__ == '__main__':
-    cli_run_skill("rerun docker")
+# def cli_run_skill(name):
+#     skill_manager = SkillManager()
+#     try:
+#         skill_manager.execute(*sys.argv[1:])
+#     except (SkillExecuteError, MissedKillError) as e:
+#         exit_msg(str(e))
+#     return
+#
+# if __name__ == '__main__':
+#     cli_run_skill("rerun docker")
