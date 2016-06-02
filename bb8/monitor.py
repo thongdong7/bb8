@@ -1,3 +1,5 @@
+from bb8.process.exception import CommandError
+from bb8.script.utils import error_msg
 from os import chdir
 from time import time
 
@@ -106,10 +108,13 @@ class MonAndRun(object):
             return
 
         # print(self.path_maps[path])
-        cmds = self.path_maps[path]
-        for cmd in cmds:
-            output = run_cmd(cmd)
-            print(output)
+        try:
+            cmds = self.path_maps[path]
+            for cmd in cmds:
+                output = run_cmd(cmd)
+                print(output)
+        except CommandError as e:
+            error_msg(str(e))
 
         print('\nCompleted in %s seconds' % (time() - start))
 
