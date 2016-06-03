@@ -88,6 +88,9 @@ def restore_files():
         if not exists(local_path):
             print("Create file %s" % local_path)
             copy_file(remote_path, local_path)
+        elif not exists(remote_path):
+            print("Create file %s" % remote_path)
+            copy_file(local_path, remote_path)
         else:
             if not is_diff(local_path, remote_path):
                 continue
