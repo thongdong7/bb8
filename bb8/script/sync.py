@@ -86,12 +86,8 @@ def restore_files():
         # print("Replace file {0} by {1}".format(compiled_path, path))
 
         if not exists(local_path):
-            compiled_dir = dirname(local_path)
-            if not exists(compiled_dir):
-                os.makedirs(compiled_dir)
-
             print("Create file %s" % local_path)
-            open(local_path, 'w').write(open(remote_path))
+            copy_file(remote_path, local_path)
         else:
             if not is_diff(local_path, remote_path):
                 continue
