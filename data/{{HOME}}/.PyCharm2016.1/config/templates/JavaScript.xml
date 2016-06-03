@@ -9,8 +9,6 @@
       <option name="JSON" value="true" />
       <option name="Python" value="true" />
       <option name="Python_Class" value="true" />
-      <option name="SQL" value="true" />
-      <option name="PL/SQL" value="true" />
       <option name="OTHER" value="true" />
     </context>
   </template>
@@ -25,8 +23,6 @@
       <option name="JSON" value="true" />
       <option name="Python" value="true" />
       <option name="Python_Class" value="true" />
-      <option name="SQL" value="true" />
-      <option name="PL/SQL" value="true" />
       <option name="OTHER" value="true" />
     </context>
   </template>

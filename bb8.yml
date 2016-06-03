@@ -16,3 +16,4 @@ paths:
 
   # Fish
   - "{{HOME}}/.config/fish/config.fish"
+  - "{{HOME}}/.config/fish/functions/fish_prompt.fish"

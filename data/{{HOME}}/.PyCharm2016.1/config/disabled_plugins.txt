@@ -5,3 +5,5 @@ Subversion
 com.intellij.tasks
 org.jetbrains.plugins.rest
 hg4idea
+com.webstorm.symbols
+jballant.CommonJSAutoComplete
