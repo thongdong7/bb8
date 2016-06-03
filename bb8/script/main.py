@@ -10,7 +10,7 @@ import sys
 
 from bb8.script.failed_mon import failed_monitor
 from bb8.script.mon import mon_and_run
-from bb8.script.sync import sync_files
+from bb8.script.sync import sync_files, restore_files
 from bb8.script.up import cmd_up
 from bb8.script.utils import exit_msg
 from bb8.skill.cli import SkillManager, SkillExecuteError, MissedKillError
@@ -23,6 +23,8 @@ def cli():
 
 
 cli.add_command(sync_files)
+cli.add_command(restore_files)
+
 cli.add_command(mon_and_run)
 cli.add_command(cmd_up)
 cli.add_command(failed_monitor)

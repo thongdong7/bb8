@@ -1,8 +1,9 @@
 import logging
-
 import os
 from genericpath import exists
 from os.path import join, dirname
+
+from bb8.utils.io_utils import copy_file, is_diff
 
 
 class BB8(object):
@@ -20,12 +21,6 @@ class BB8(object):
         for path in paths:
             local_file = self.template_engine.render(path)
             yield local_file
-
-    def _is_diff(self, local_file, remote_file):
-        if not exists(remote_file):
-            return True
-
-        return open(remote_file, ).read() != open(local_file).read()
 
     def _get_changes(self, paths):
         """
@@ -45,7 +40,7 @@ class BB8(object):
             remote_file = join(self.data_folder, path[1:])
             # print(remote_file)
 
-            if not self._is_diff(local_file, remote_file):
+            if not is_diff(local_file, remote_file):
                 # No thing change
                 continue
 
@@ -62,12 +57,8 @@ class BB8(object):
             if exists(remote_file):
                 self.merge_file(local_file, remote_file)
             else:
-                self.copy_file(local_file, remote_file)
+                copy_file(local_file, remote_file)
 
             change = True
 
         return change
-
-    def copy_file(self, local_file, remote_file):
-        self.logger.debug('Copy file %s' % local_file)
-        open(remote_file, 'w').write(open(local_file).read())
