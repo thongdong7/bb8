@@ -15,6 +15,7 @@ setup(
         'pyyaml==3.11',
         'click==6.6',
         'tornado==4.3',
+        'python-dateutil==2.5.3'
     ],
     # extras_require={
     #     'cli': [
