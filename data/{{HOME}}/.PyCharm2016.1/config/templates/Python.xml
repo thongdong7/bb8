@@ -17,4 +17,10 @@
   <template name="app_dir" value="app_dir = os.path.abspath(os.path.dirname(__file__))" description="Application Dir" toReformat="false" toShortenFQNames="true">
     <context />
   </template>
+  <template name="exstr" value="def __str__(self, *args, **kwargs):&#10;    return $TO_STRING$&#10;&#10;def __repr__(self, *args, **kwargs):&#10;    return super().__str__(*args, **kwargs)" description="Exception toString" toReformat="false" toShortenFQNames="true">
+    <variable name="TO_STRING" expression="" defaultValue="" alwaysStopAt="true" />
+    <context>
+      <option name="Python_Class" value="true" />
+    </context>
+  </template>
 </templateSet>

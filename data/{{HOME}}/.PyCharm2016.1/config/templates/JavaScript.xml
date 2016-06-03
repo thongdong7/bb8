@@ -1,5 +1,33 @@
 <templateSet group="JavaScript">
   <template name="log" value="console.log($END$);" toReformat="false" toShortenFQNames="true">
-    <context />
+    <context>
+      <option name="HTML_TEXT" value="true" />
+      <option name="HTML" value="true" />
+      <option name="XSL_TEXT" value="true" />
+      <option name="XML" value="true" />
+      <option name="XML_TEXT" value="true" />
+      <option name="JSON" value="true" />
+      <option name="Python" value="true" />
+      <option name="Python_Class" value="true" />
+      <option name="SQL" value="true" />
+      <option name="PL/SQL" value="true" />
+      <option name="OTHER" value="true" />
+    </context>
+  </template>
+  <template name="exco" value="export const $0$ = '$0$'" description="export const" toReformat="false" toShortenFQNames="true">
+    <variable name="0" expression="" defaultValue="" alwaysStopAt="true" />
+    <context>
+      <option name="HTML_TEXT" value="true" />
+      <option name="HTML" value="true" />
+      <option name="XSL_TEXT" value="true" />
+      <option name="XML" value="true" />
+      <option name="XML_TEXT" value="true" />
+      <option name="JSON" value="true" />
+      <option name="Python" value="true" />
+      <option name="Python_Class" value="true" />
+      <option name="SQL" value="true" />
+      <option name="PL/SQL" value="true" />
+      <option name="OTHER" value="true" />
+    </context>
   </template>
 </templateSet>
