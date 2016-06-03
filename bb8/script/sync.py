@@ -1,9 +1,14 @@
-from time import time
+import os
+from os.path import exists, dirname, join
+from time import time, ctime
 
 import click as click
 import yaml
-from bb8.container import bb8, git_push
+from dateutil.parser import parse
+
+from bb8.container import bb8, git_push, data_folder
 from bb8.monitor import FileMonitor, FileMonitorPool
+from bb8.utils.io_utils import copy_file, is_diff, show_diff
 
 config_file = 'bb8.yml'
 
@@ -69,3 +74,36 @@ def sync_files():
 
     print("Wait for file change")
     file_monitor_pool.start()
+
+
+@click.command('restore', help='Restore config files from git')
+def restore_files():
+    load_paths()
+
+    for path in paths:
+        remote_path = join(data_folder, path)
+        local_path = bb8.template_engine.render(path)
+        # print("Replace file {0} by {1}".format(compiled_path, path))
+
+        if not exists(local_path):
+            print("Create file %s" % local_path)
+            copy_file(remote_path, local_path)
+        else:
+            if not is_diff(local_path, remote_path):
+                continue
+
+            local_time = parse(ctime(os.path.getmtime(local_path)))
+            remote_time = parse(ctime(os.path.getmtime(remote_path)))
+
+            if remote_time > local_time:
+                print("Override remote to local: {0}".format(remote_path))
+                show_diff(local_path, remote_path)
+
+                copy_file(remote_path, local_path)
+            else:
+                print("Local is newer, need to sync: {0}".format(remote_path))
+                show_diff(local_path, remote_path)
+
+                copy_file(local_path, remote_path)
+
+            print("-----------------")

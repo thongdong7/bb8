@@ -11,5 +11,8 @@ paths:
   - "{{HOME}}/.PyCharm2016.1/config/disabled_plugins.txt"
   - "{{HOME}}/.PyCharm2016.1/config/codestyles/Default _1_.xml"
 
+  # Android Studio
+  - "{{HOME}}/.AndroidStudio2.1/config/keymaps/Eclipse copy.xml"
+
   # Fish
   - "{{HOME}}/.config/fish/config.fish"
