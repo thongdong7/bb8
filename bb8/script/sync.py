@@ -1,4 +1,3 @@
-import difflib
 import os
 from os.path import exists, dirname, join
 from time import time, ctime
@@ -9,7 +8,7 @@ from dateutil.parser import parse
 
 from bb8.container import bb8, git_push, data_folder
 from bb8.monitor import FileMonitor, FileMonitorPool
-from bb8.utils.io_utils import copy_file, is_diff
+from bb8.utils.io_utils import copy_file, is_diff, show_diff
 
 config_file = 'bb8.yml'
 
@@ -77,36 +76,9 @@ def sync_files():
     file_monitor_pool.start()
 
 
-def comp_file(src, target):
-    # src_time = parse(ctime(os.path.getmtime(src)))
-    # target_time = parse(ctime(os.path.getmtime(target)))
-    # print("last modified: %s" % ctime(os.path.getmtime(src)))
-    # print("last modified: %s" % ctime(os.path.getmtime(target)))
-
-    src_content = open(src).read()
-    target_content = open(target).read()
-
-    src_lines = src_content.strip().splitlines()
-    target_lines = target_content.strip().splitlines()
-
-    # print(src_time)
-    #
-    # if src_time > target_time:
-    #     suggestion = "Use {0}".format(src)
-    # else:
-    #     suggestion = "Use {0}".format(target)
-    #
-    # print(suggestion)
-
-    for line in difflib.unified_diff(src_lines, target_lines, fromfile=src, tofile=target, lineterm=''):
-        print(line)
-
-
 @click.command('restore', help='Restore config files from git')
 def restore_files():
     load_paths()
-
-    monitor_files = list(bb8.get_monitor_files(paths))
 
     for path in paths:
         remote_path = join(data_folder, path)
@@ -129,20 +101,13 @@ def restore_files():
 
             if remote_time > local_time:
                 print("Override remote to local: {0}".format(remote_path))
-                comp_file(local_path, remote_path)
+                show_diff(local_path, remote_path)
 
                 copy_file(remote_path, local_path)
             else:
                 print("Local is newer, need to sync: {0}".format(remote_path))
-                comp_file(local_path, remote_path)
+                show_diff(local_path, remote_path)
 
                 copy_file(local_path, remote_path)
 
             print("-----------------")
-
-            continue
-
-            break
-
-            # for path in monitor_files:
-            #     print(path)
