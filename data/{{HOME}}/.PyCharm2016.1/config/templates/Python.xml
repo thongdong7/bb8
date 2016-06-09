@@ -23,4 +23,12 @@
       <option name="Python_Class" value="true" />
     </context>
   </template>
+  <template name="decor" value="def $DECOR_NAME$($DECOR_PARAM$):&#10;    def _decorating_wrapper(func):&#10;        def func_wrapper(*args, **kwargs):&#10;            # Before&#10;            &#10;            # Call func&#10;            func(*args, **kwargs)&#10;&#10;            # After&#10;&#10;        return func_wrapper&#10;&#10;    return _decorating_wrapper" description="Decorator function" toReformat="true" toShortenFQNames="true">
+    <variable name="DECOR_NAME" expression="" defaultValue="" alwaysStopAt="true" />
+    <variable name="DECOR_PARAM" expression="" defaultValue="" alwaysStopAt="true" />
+    <context>
+      <option name="Python" value="true" />
+      <option name="Python_Class" value="true" />
+    </context>
+  </template>
 </templateSet>
