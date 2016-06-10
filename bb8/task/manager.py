@@ -4,7 +4,7 @@ from subprocess import Popen
 
 from bb8.process.cmd import terminate_process, run_cmd, wait_stdout
 from bb8.process.exception import CommandError
-from bb8.script.utils import exit_msg, write_msg
+from bb8.script.utils import exit_msg, write_msg, error_msg
 
 
 class RunServiceError(Exception):
@@ -24,6 +24,7 @@ class TaskManager(object):
         self.logger = logging.getLogger(self.__class__.__name__)
 
     def execute(self):
+        has_error = None
         try:
             for item in self.tasks:
                 # print item
@@ -35,12 +36,19 @@ class TaskManager(object):
 
             write_msg("Task completed")
         except RunServiceError as e:
-            exit_msg(str(e))
+            has_error = True
+            error_msg(str(e))
         except CommandError as e:
+            has_error = True
             exit_msg(str(e))
         finally:
             self.stop()
-            write_msg("Completed")
+
+            if has_error:
+                error_msg("Completed with error")
+            else:
+                msg = "Completed successful"
+                write_msg(msg)
 
     def stop(self):
         write_msg("Stop services")
@@ -53,7 +61,7 @@ class TaskManager(object):
 
     def run_service(self, task):
         p = Popen(task['cmd'], shell=True, stderr=subprocess.STDOUT,
-                                               stdout=subprocess.PIPE)
+                  stdout=subprocess.PIPE)
 
         self.services[task['service']] = p
 
