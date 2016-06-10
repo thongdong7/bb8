@@ -28,6 +28,5 @@ def cli_run_task(config_file, task_name):
     if task_name not in tasks:
         exit_msg("No task '{0}".format(task_name))
 
-    my_tasks = tasks[task_name]
-    task_manager = TaskManager(my_tasks)
-    task_manager.execute()
+    task_manager = TaskManager(tasks)
+    task_manager.execute(task_name)
