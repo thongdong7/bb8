@@ -1,6 +1,11 @@
+import shlex
+
+import yaml
 from bb8.process.cmd import run_cmd
 from bb8.process.exception import CommandError
 from bb8.script.utils import write_msg
+from os import makedirs, walk
+from os.path import expanduser, exists, join
 
 
 class Skill(object):
@@ -30,7 +35,7 @@ class SkillExecuteError(Exception):
         return super().__str__(*args, **kwargs)
 
 
-class MissedKillError(Exception):
+class MissedSkillError(Exception):
     def __init__(self, name, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.name = name
@@ -49,17 +54,42 @@ class SkillManager(object):
         self.load_skills()
 
     def load_skills(self):
-        data = [
+        skill_dir = expanduser('~/.bb8/skills')
+        # print(skill_dir)
+        if not exists(skill_dir):
+            makedirs(skill_dir)
+
+        data = self._load_skills_from_folder(skill_dir)
+
+        data += [
             {
                 "name": "rerun docker",
                 "use": "dc stop $1 && dc rm -f $1 && dc up -d $1"
             }
         ]
 
+        # pprint(data)
+        # sys.exit(1)
+
         for item in data:
             name = item['name']
             skill = Skill(item)
             self.skill_map[name] = skill
+
+    def _load_skills_from_folder(self, skill_dir):
+        ret = []
+
+        for dirName, subdirList, fileList in walk(skill_dir):
+            # print('Found directory: %s' % dirName)
+            for fname in fileList:
+                # print('\t%s' % fname)
+                path = join(dirName, fname)
+                ret += self._load_skill_from_file(path)
+
+        return ret
+
+    def _load_skill_from_file(self, path):
+        return yaml.load(open(path))
 
     def execute(self, *args):
         name, skill_args = self.parse_request(*args)
@@ -71,22 +101,38 @@ class SkillManager(object):
             if quest_name in self.skill_map:
                 return quest_name, args[i:]
 
-        raise MissedKillError(' '.join(args))
+        raise MissedSkillError(' '.join(args))
+
+    def command_to_use(self, command):
+        args = shlex.split(command)
+        try:
+            name, skill_args = self.parse_request(*args)
+            skill = self.get_skill(name)
+            return self._build_use_command(skill.use, skill_args)
+        except MissedSkillError:
+            return None
 
     def get_skill(self, name):
         return self.skill_map.get(name)
+
+    def _build_use_command(self, use, args):
+        for i, arg in enumerate(args):
+            use = use.replace('${0}'.format(i + 1), arg)
+
+        return use
 
     def execute_skill(self, name, *args, **kwargs):
         skill = self.get_skill(name)
 
         if not skill:
             # Don't have that skill yet
-            raise MissedKillError(name=name)
+            raise MissedSkillError(name=name)
 
         use = skill.use
 
-        for i, arg in enumerate(args):
-            use = use.replace('${0}'.format(i + 1), arg)
+        # for i, arg in enumerate(args):
+        #     use = use.replace('${0}'.format(i + 1), arg)
+        use = self._build_use_command(use, args)
 
         # print(use)
         # print(skill.use)
@@ -97,7 +143,6 @@ class SkillManager(object):
             raise SkillExecuteError(skill=skill, use=use, detail=e.output)
 
         write_msg("Complete: {0}".format(use))
-
 
 # def cli_run_skill(name):
 #     skill_manager = SkillManager()

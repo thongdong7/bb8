@@ -13,7 +13,7 @@ from bb8.script.mon import mon_and_run
 from bb8.script.sync import sync_files, restore_files
 from bb8.script.up import cmd_up
 from bb8.script.utils import exit_msg
-from bb8.skill.cli import SkillManager, SkillExecuteError, MissedKillError
+from bb8.skill.cli import SkillManager, SkillExecuteError, MissedSkillError
 from bb8.task.cli import cli_run_task
 
 
@@ -37,7 +37,7 @@ def bb8_script():
         skill_manager.execute(*sys.argv[1:])
     except SkillExecuteError as e:
         exit_msg(str(e))
-    except MissedKillError:
+    except MissedSkillError:
         # Try to use current cli command
         cli()
 
