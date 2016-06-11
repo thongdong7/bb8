@@ -2,7 +2,7 @@ import logging
 import subprocess
 from time import sleep, time
 
-from bb8.process.exception import CommandError
+from .exception import CommandError
 
 
 def run_cmd(cmd, **kwargs):
