@@ -3,9 +3,10 @@ import shlex
 import yaml
 from bb8.process.cmd import run_cmd
 from bb8.process.exception import CommandError
-from bb8.script.utils import write_msg
+from bb8.script.utils import write_msg, error_msg
 from os import makedirs, walk
 from os.path import expanduser, exists, join
+from yaml.scanner import ScannerError
 
 
 class Skill(object):
@@ -47,6 +48,10 @@ class MissedSkillError(Exception):
         return super().__str__(*args, **kwargs)
 
 
+class SkillFileError(Exception):
+    pass
+
+
 class SkillManager(object):
     def __init__(self):
         self.skill_map = {}
@@ -84,12 +89,19 @@ class SkillManager(object):
             for fname in fileList:
                 # print('\t%s' % fname)
                 path = join(dirName, fname)
-                ret += self._load_skill_from_file(path)
+                try:
+                    ret += self._load_skill_from_file(path)
+                except SkillFileError as e:
+                    error_msg('SkillFileError: {0}'.format(str(e)))
 
         return ret
 
     def _load_skill_from_file(self, path):
-        return yaml.load(open(path))
+        try:
+            return yaml.load(open(path))
+        except ScannerError as e:
+            raise SkillFileError(str(e))
+
 
     def execute(self, *args):
         name, skill_args = self.parse_request(*args)
