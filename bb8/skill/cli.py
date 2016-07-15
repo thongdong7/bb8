@@ -24,7 +24,7 @@ class Skill(object):
 
 class SkillExecuteError(Exception):
     def __init__(self, skill, use, detail, *args, **kwargs):
-        super().__init__(*args, **kwargs)
+        super(SkillExecuteError, self).__init__(*args, **kwargs)
         self.skill = skill
         self.use = use
         self.detail = detail
@@ -33,19 +33,19 @@ class SkillExecuteError(Exception):
         return "Could not execute skill '{0}'. Use: '{1}'. Detail: '{2}'".format(self.skill.name, self.use, self.detail)
 
     def __repr__(self, *args, **kwargs):
-        return super().__str__(*args, **kwargs)
+        return super(SkillExecuteError, self).__str__(*args, **kwargs)
 
 
 class MissedSkillError(Exception):
     def __init__(self, name, *args, **kwargs):
-        super().__init__(*args, **kwargs)
+        super(MissedSkillError, self).__init__(name, *args, **kwargs)
         self.name = name
 
     def __str__(self, *args, **kwargs):
         return "Missed skill '{0}'. Why don't you to add one?".format(self.name)
 
     def __repr__(self, *args, **kwargs):
-        return super().__str__(*args, **kwargs)
+        return super(MissedSkillError, self).__str__(*args, **kwargs)
 
 
 class SkillFileError(Exception):

@@ -14,7 +14,7 @@ from bb8.process.cmd import run_cmd
 
 class FileChange(Exception):
     def __init__(self, path, *args, **kwargs):
-        super(FileChange).__init__(*args, **kwargs)
+        super(FileChange, self).__init__(path, *args, **kwargs)
         self.path = path
 
 
@@ -112,7 +112,7 @@ class MonAndRun(object):
             cmds = self.path_maps[path]
             for cmd in cmds:
                 output = run_cmd(cmd)
-                print(output)
+                print(output.encode('utf-8'))
         except CommandError as e:
             error_msg(str(e))
 

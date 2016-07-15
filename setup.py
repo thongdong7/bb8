@@ -4,7 +4,7 @@ from setuptools import setup, find_packages
 
 setup(
     name='bb8',
-    version='0.2.4.dev',
+    version='0.2.5.dev',
     description='BB8 - A robot to support developer',
     author='Thong Dong',
     author_email='thongdong7@gmail.com',
