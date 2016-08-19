@@ -9,5 +9,5 @@ class CommandError(Exception):
         return self.__repr__()
 
     def __repr__(self, *args, **kwargs):
-        return 'Command Error: {0}\nCommand: {1}\nDetail: {2}' \
+        return u'Command Error: {0}\nCommand: {1}\nDetail: {2}' \
             .format(self.returncode, self.cmd, self.output)

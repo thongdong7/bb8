@@ -1,3 +1,5 @@
+from six import text_type
+
 from bb8.process.exception import CommandError
 from bb8.script.utils import error_msg
 from os import chdir
@@ -5,7 +7,8 @@ from time import time
 
 import os
 import yaml
-from os.path import abspath, curdir, dirname
+from os.path import abspath, curdir, dirname, isdir, join
+from os import walk
 
 from tornado.ioloop import IOLoop, PeriodicCallback
 
@@ -23,13 +26,32 @@ class FileMonitor:
         self.callback = callback
         self.watched_files = set()
         self.modify_times = {}
+        self.root_path_map = {}
 
     def watch(self, path):
         self.watched_files.add(path)
 
     def watch_multiple(self, paths):
         for path in paths:
-            self.watched_files.add(path)
+            self._add(path)
+
+    def _add(self, path):
+        if not isdir(path):
+            full_path = abspath(path)
+            self.root_path_map[full_path] = path
+            self.watched_files.add(full_path)
+        else:
+            f = []
+            for (dirpath, dirnames, filenames) in walk(path):
+                for filename in filenames:
+                    f.append(join(dirpath, filename))
+                # f.extend(filenames)
+            # print f
+
+            for item in f:
+                full_path = abspath(item)
+                self.root_path_map[full_path] = path
+                self.watched_files.add(full_path)
 
     def scan(self):
         try:
@@ -50,7 +72,8 @@ class FileMonitor:
         if self.modify_times[path] != modified:
             self.modify_times[path] = modified
 
-            raise FileChange(path)
+            actual_path = self.root_path_map[path]
+            raise FileChange(actual_path)
 
 
 class FileMonitorPool:
@@ -96,6 +119,12 @@ class MonAndRun(object):
             for path in item['paths']:
                 ret_path_maps[path] = item['cmds']
 
+            print('Trigger')
+            for cmd in item['cmds']:
+                print 'Running command: {0}'.format(cmd)
+                output = run_cmd(cmd)
+                print(output.encode('utf-8'))
+
         self.path_maps = ret_path_maps
 
         self.paths_monitor.watch_multiple(self.path_maps.keys())
@@ -111,10 +140,11 @@ class MonAndRun(object):
         try:
             cmds = self.path_maps[path]
             for cmd in cmds:
+                print 'Running command: {0}'.format(cmd)
                 output = run_cmd(cmd)
                 print(output.encode('utf-8'))
         except CommandError as e:
-            error_msg(str(e))
+            error_msg(text_type(e))
 
         print('\nCompleted in %s seconds' % (time() - start))
 
