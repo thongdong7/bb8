@@ -4,11 +4,11 @@ from setuptools import setup, find_packages
 
 setup(
     name='bb8',
-    version='0.2.5.dev',
+    version='0.2.6',
     description='BB8 - A robot to support developer',
     author='Thong Dong',
     author_email='thongdong7@gmail.com',
-    url='https://github.com/thongdong7/mydev',
+    url='https://github.com/thongdong7/bb8',
     packages=find_packages(exclude=["build", "dist", "tests*"]),
     install_requires=[
         'jinja2==2.8',
