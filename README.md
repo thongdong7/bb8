@@ -5,7 +5,7 @@
 ## Install
 
 ```
-pip install bb8~=0.2.dev --upgrade
+pip install bb8 --upgrade
 ```
 
 ## Usage
