@@ -1,5 +1,3 @@
-[TOC]
-
 # bb8
 
 ## Install
