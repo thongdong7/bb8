@@ -121,7 +121,7 @@ class MonAndRun(object):
 
             print('Trigger')
             for cmd in item['cmds']:
-                print 'Running command: {0}'.format(cmd)
+                print('Running command: {0}'.format(cmd))
                 output = run_cmd(cmd)
                 print(output.encode('utf-8'))
 
@@ -140,7 +140,7 @@ class MonAndRun(object):
         try:
             cmds = self.path_maps[path]
             for cmd in cmds:
-                print 'Running command: {0}'.format(cmd)
+                print('Running command: {0}'.format(cmd))
                 output = run_cmd(cmd)
                 print(output.encode('utf-8'))
         except CommandError as e:
