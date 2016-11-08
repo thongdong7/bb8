@@ -14,7 +14,7 @@ setup(
         'jinja2==2.8',
         'pyyaml==3.11',
         'click==6.6',
-        'tornado==4.3',
+        'tornado==4.4.2',
         'python-dateutil==2.5.3'
     ],
     # extras_require={
