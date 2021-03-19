@@ -11,7 +11,7 @@ setup(
     url='https://github.com/thongdong7/bb8',
     packages=find_packages(exclude=["build", "dist", "tests*"]),
     install_requires=[
-        'jinja2==2.8',
+        'jinja2==2.11.3',
         'pyyaml==3.11',
         'click==6.6',
         'tornado==4.4.2',
