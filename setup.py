@@ -12,7 +12,7 @@ setup(
     packages=find_packages(exclude=["build", "dist", "tests*"]),
     install_requires=[
         'jinja2==2.8',
-        'pyyaml==3.11',
+        'pyyaml==5.4',
         'click==6.6',
         'tornado==4.4.2',
         'python-dateutil==2.5.3'
@@ -20,7 +20,7 @@ setup(
     # extras_require={
     #     'cli': [
     #         'click==6.6',
-    #         'pyyaml==3.11'
+    #         'pyyaml==5.4'
     #     ],
     # },
     entry_points={
